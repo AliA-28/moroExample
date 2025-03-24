@@ -1,0 +1,23 @@
+{
+  "name": "moroexample",
+  "version": "1.0.0",
+  "description": "example of GUI + API testing",
+  "homepage": "https://github.com/AliA-28/moroExample#readme",
+  "bugs": {
+    "url": "https://github.com/AliA-28/moroExample/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AliA-28/moroExample.git"
+  },
+  "license": "ISC",
+  "author": "Alex Dedinska",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress run"
+  },
+  "devDependencies": {
+    "cypress": "^14.2.0"
+  }
+}
