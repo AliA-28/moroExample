@@ -2,21 +2,20 @@ export class MoroSystemCareersPage {
   constructor() {
     this.locationDropDown = ".inp-custom-select__select";
     this.brnoLocation = "label[data-filter='Brno']";
-    this.vacanciesSection = ".c-positions__title";
-    this.vacancies = "a[data-event-category='Pozice']";
+    this.vacanciesSection = ".c-positions__tools";
+    this.vacancies = "ul.c-positions__wrap > li";
     this.cookieAcceptHeader = "#cookiescript_header";
     this.cookieAcceptButton = "#cookiescript_accept";
   }
   l;
   findVacanciesSection() {
-    cy.get(this.vacanciesSection).scrollTo("center");
+    cy.get(this.vacanciesSection).scrollIntoView();
     return this;
   }
 
   locateFilterOfCities() {
-    cy.get(this.locationDropDown).scrollTo("center");
+    cy.get(this.locationDropDown).scrollIntoView();
     cy.get(this.locationDropDown).click();
-    cy.get(this.brnoLocation).click();
     return this;
   }
 
@@ -37,11 +36,8 @@ export class MoroSystemCareersPage {
   }
 
   getAllvacantPositions() {
-    let vacanciesLinks = [];
-    let links = cy.get(this.vacancies);
-    for (let i = 0; i < links.lenght; i++) {
-      vacanciesLinks.push(links[i].href);
-      console.log(vacanciesLinks);
-    }
+    cy.get(this.vacancies).each(($li) => {
+      cy.log($li.text());
+    });
   }
 }

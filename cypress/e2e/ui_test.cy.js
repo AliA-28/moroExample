@@ -1,11 +1,10 @@
 import { GoogleMainPage } from "../page-object/google_main";
 import { GoogleSearchResultPage } from "../page-object/google_search_result";
-import { MoroSystemCareersPage } from "../page-object/morosystems_careers_page";
 import { MoroSystemsMainPage } from "../page-object/morosystems_main_page";
 
 describe("Verify that official Moro page is accesible from Google", () => {
   before(() => {
-    cy.viewport(1280, 570);
+    cy.viewport(1200, 700);
   });
 
   it(" Visit google, type and search Morosystems", () => {
@@ -16,7 +15,7 @@ describe("Verify that official Moro page is accesible from Google", () => {
       .findAndWrite("MoroSystems")
       .clickSearch();
   });
-  it("Google to Moro", () => {
+  it("Google result page , click on Moro", () => {
     cy.visit("https://www.google.com/search?q=morosystems");
     new GoogleSearchResultPage()
       .verifySearchResultUrl()
@@ -24,12 +23,16 @@ describe("Verify that official Moro page is accesible from Google", () => {
   });
 
   it("Morosystems main to careers page", () => {
+    cy.on("uncaught:exception", (err, type) => {
+      expect(err.message).to.include(
+        "Cannot read properties of undefined (reading 'length'"
+      );
+      return false;
+    });
     cy.visit("https://www.morosystems.cz/");
-    new MoroSystemsMainPage().checkAndAcceptCookies().clickOnCareers();
-  });
-  it("Careers", () => {
-    cy.visit("https://www.morosystems.cz/kariera/");
-    new MoroSystemCareersPage()
+    new MoroSystemsMainPage()
+      .checkAndAcceptCookies()
+      .clickOnCareers()
       .findVacanciesSection()
       .locateFilterOfCities()
       .chooseBrnoFromFilter()
